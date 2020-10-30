@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
 class _RandomWordsState extends State<RandomWords> {
   
   final _suggestions = <WordPair>[];
-  final _saved = Set<WordPair>();
+  var _favourite = Set<WordPair>();
   
   Widget _buildSuggestions() {
     return ListView.builder(
@@ -59,49 +59,49 @@ class _RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {    
 
-    final alreadySaved = _saved.contains(pair); 
+    final alreadyFavourite = _favourite.contains(pair); 
     return ListTile(
-      leading: Image(
-          image: AssetImage('assets/images/icon-blue-bg.png'),
-          fit: BoxFit.cover,
+        leading: Image(
+            image: AssetImage('assets/images/icon-blue-bg.png'),
+            fit: BoxFit.cover,
+          ),
+        //  Image.asset(
+        //   'assets/images/icon-blue-bg.png',
+        //   fit: BoxFit.cover,
+        // ),
+        // Image(
+        //   image: NetworkImage('https://cdn.auth0.com/blog/illustrations/flutter.png'),
+        //   fit: BoxFit.cover,
+        // ),
+        title: Text(
+          pair.asPascalCase,
+          style: _bodyTextStyle,
         ),
-      //  Image.asset(
-      //   'assets/images/icon-blue-bg.png',
-      //   fit: BoxFit.cover,
-      // ),
-      // Image(
-      //   image: NetworkImage('https://cdn.auth0.com/blog/illustrations/flutter.png'),
-      //   fit: BoxFit.cover,
-      // ),
-      title: Text(
-        pair.asPascalCase,
-        style: _bodyTextStyle,
-      ),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ), 
-      onTap: () {
-      setState(() {
+        trailing: Icon(
+          alreadyFavourite ? Icons.favorite : Icons.favorite_border,
+          color: alreadyFavourite ? Colors.red : null,
+        ), 
+        onTap: () {
+        setState(() {
 
-        if (alreadySaved) {
+          if (alreadyFavourite) {
 
-          _saved.remove(pair);
-        } else { 
+            _favourite.remove(pair);
+          } else { 
 
-          _saved.add(pair); 
-        } 
-      });
-    },
+            _favourite.add(pair); 
+          }
+        });
+      },
     );
   }
 
-  void _pushSaved() {
+  void _pushFavourite() {
     Navigator.of(context).push(
       MaterialPageRoute<void>( 
         builder: (BuildContext context) {
-         
-          var tiles = _saved.map(
+           
+          var tiles = _favourite.map(
               (WordPair pair) {
                 return ListTile(
                   title: Text(
@@ -124,7 +124,7 @@ class _RandomWordsState extends State<RandomWords> {
               tiles: [
                   ListTile(
                     title: Text(
-                      'Nothing to show!',
+                      'No favourites!',
                       style: _bodyTextStyle,
                     ),
                   ),
@@ -132,13 +132,51 @@ class _RandomWordsState extends State<RandomWords> {
             ).toList();
           }
 
+        _clearFavourite(BuildContext context) {
+
+            _favourite = Set<WordPair>();
+            print('Snackbar closed!');
+            final snackBar =  SnackBar( 
+              backgroundColor: Colors.red, 
+              content: Row(
+                children: <Widget>[                       
+                  Icon(
+                    Icons.warning,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Removed all favourites!',
+                    style: _bodyTextStyle,
+                  ),
+                ],
+              ),
+            action: SnackBarAction(
+                      label: 'Close',
+                      onPressed: () {
+                        
+                        print('Snackbar closed!');
+                      },
+                    ),
+              duration: Duration(milliseconds: 1500),
+          );
+
+          Scaffold.of(context).showSnackBar(snackBar);
+        }
+
           return Scaffold(
               appBar: AppBar(
               title: Text(
-                'Saved Suggestions',
+                'Favourites',
                 style: _appHeaderTextStyle
               ),
               centerTitle: true,
+              backgroundColor: Colors.blue,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.clear_all), 
+                  onPressed: () => _clearFavourite(context),
+                ),
+              ],
             ),
             body: ListView(children: divided),
           );
@@ -158,7 +196,7 @@ class _RandomWordsState extends State<RandomWords> {
         centerTitle: true,
         backgroundColor: Colors.red,
         actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+          IconButton(icon: Icon(Icons.list), onPressed: _pushFavourite),
         ],
       ),
       body: _buildSuggestions(),

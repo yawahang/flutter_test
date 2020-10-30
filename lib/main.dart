@@ -83,6 +83,7 @@ class _RandomWordsState extends State<RandomWords> {
       ), 
       onTap: () {
       setState(() {
+
         if (alreadySaved) {
 
           _saved.remove(pair);
@@ -99,7 +100,8 @@ class _RandomWordsState extends State<RandomWords> {
     Navigator.of(context).push(
       MaterialPageRoute<void>( 
         builder: (BuildContext context) {
-          final tiles = _saved.map(
+         
+          var tiles = _saved.map(
               (WordPair pair) {
                 return ListTile(
                   title: Text(
@@ -109,11 +111,26 @@ class _RandomWordsState extends State<RandomWords> {
                 );
               },
             );
-
-            final divided = ListTile.divideTiles(
+ 
+            var divided = ListTile.divideTiles(
               context: context,
               tiles: tiles,
             ).toList();
+
+          if(divided.length == 0) {
+            
+            divided = ListTile.divideTiles(
+              context: context,
+              tiles: [
+                  ListTile(
+                    title: Text(
+                      'Nothing to show!',
+                      style: _bodyTextStyle,
+                    ),
+                  ),
+                ]
+            ).toList();
+          }
 
           return Scaffold(
               appBar: AppBar(

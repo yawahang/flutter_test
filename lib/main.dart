@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-  
   final _suggestions = <WordPair>[];
   var _favourite = Set<WordPair>();
   
@@ -132,7 +131,7 @@ class _RandomWordsState extends State<RandomWords> {
             ).toList();
           }
 
-        _clearFavourite(BuildContext context) {
+        _clearFavourite() {
 
             _favourite = Set<WordPair>();
             print('Snackbar closed!');
@@ -174,7 +173,7 @@ class _RandomWordsState extends State<RandomWords> {
               actions: [
                 IconButton(
                   icon: Icon(Icons.clear_all), 
-                  onPressed: () => _clearFavourite(context),
+                  onPressed: _clearFavourite,
                 ),
               ],
             ),
@@ -196,7 +195,10 @@ class _RandomWordsState extends State<RandomWords> {
         centerTitle: true,
         backgroundColor: Colors.red,
         actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushFavourite),
+          IconButton(
+            icon: Icon(Icons.list), 
+            onPressed: _pushFavourite,
+          ),
         ],
       ),
       body: _buildSuggestions(),

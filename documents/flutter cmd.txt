@@ -34,3 +34,4 @@ r / R (Hot reload app)
 flutter build
 flutter build web
 
+flutter pub get (get packages of pubspec.yaml)

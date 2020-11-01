@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+
   final _suggestions = <WordPair>[];
   var _favourite = Set<WordPair>();
   
@@ -96,6 +97,8 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   void _pushFavourite() {
+    
+    final GlobalKey<ScaffoldState> _favScaffoldKey = new GlobalKey<ScaffoldState>();
     Navigator.of(context).push(
       MaterialPageRoute<void>( 
         builder: (BuildContext context) {
@@ -133,8 +136,11 @@ class _RandomWordsState extends State<RandomWords> {
 
         _clearFavourite() {
 
-            _favourite = Set<WordPair>();
-            print('Snackbar closed!');
+            print('_clearFavourite _favourite ======================================');
+            print(_favourite);
+            _favourite.clear();
+            print('_clearFavourite _favourite clear ======================================');
+            print(_favourite);
             final snackBar =  SnackBar( 
               backgroundColor: Colors.red, 
               content: Row(
@@ -150,19 +156,20 @@ class _RandomWordsState extends State<RandomWords> {
                 ],
               ),
             action: SnackBarAction(
-                      label: 'Close',
+                      label: 'Ok',
                       onPressed: () {
                         
                         print('Snackbar closed!');
                       },
                     ),
-              duration: Duration(milliseconds: 1500),
+              duration: Duration(milliseconds: 5000),
           );
 
-          Scaffold.of(context).showSnackBar(snackBar);
+          _favScaffoldKey.currentState.showSnackBar(snackBar);
         }
 
           return Scaffold(
+              key: _favScaffoldKey,
               appBar: AppBar(
               title: Text(
                 'Favourites',

@@ -10,7 +10,6 @@ const _appHeaderTextStyle = TextStyle(
                 letterSpacing: 2.0,
                 color: Colors.white,
               );
-
 final _bodyTextStyle = TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -142,16 +141,22 @@ class _RandomWordsState extends State<RandomWords> {
             print('_clearFavourite _favourite clear ======================================');
             print(_favourite);
             final snackBar =  SnackBar( 
-              backgroundColor: Colors.red, 
+              backgroundColor: Colors.blue, 
               content: Row(
                 children: <Widget>[                       
                   Icon(
-                    Icons.warning,
+                    Icons.info,
                     color: Colors.white,
                   ),
                   Text(
                     'Removed all favourites!',
-                    style: _bodyTextStyle,
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2.0,
+                      color: Colors.white,
+                      fontFamily: 'IndieFlower',
+                    ),
                   ),
                 ],
               ),

@@ -3,14 +3,21 @@
 // found in the LICENSE file.
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter_app/favourite_list.dart';
 
-const _appHeaderTextStyle = TextStyle(
+final GlobalKey<ScaffoldState> favScaffoldKey = new GlobalKey<ScaffoldState>();
+
+final appTitle = 'My App';
+final appTheme = ThemeData(
+        primaryColor: Colors.red,
+      );
+const appHeaderTextStyle = TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
                 color: Colors.white,
               );
-final _bodyTextStyle = TextStyle(
+final bodyTextStyle = TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
@@ -24,23 +31,58 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      title: 'My App',
-      theme: ThemeData( // overall app theme
-        primaryColor: Colors.red,
-      ),
-      home: RandomWords(),
+      title: appTitle,
+      theme: appTheme,
+      home: CardList(),
     );
   }
 }
 
-class _RandomWordsState extends State<RandomWords> {
+class CardList extends StatefulWidget {
+  @override
+  State<CardList> createState() => _CardListState();
+}
+
+class _CardListState extends State<CardList> {
 
   final _suggestions = <WordPair>[];
-  var _favourite = Set<WordPair>();
+  var favourite = Set<WordPair>();
   
-  Widget _buildSuggestions() {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: favScaffoldKey,
+      appBar: AppBar(
+        title: Text(
+            'App Title',
+            style: appHeaderTextStyle,
+          ),
+        centerTitle: true,
+        backgroundColor: Colors.red,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.list), 
+            onPressed: () => _addFav(),
+          ),
+        ],
+      ),
+      body: _buildCards(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+
+              print('button clicked!');
+          },
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.red
+        ),
+    );
+  }
+
+  Widget _buildCards() {
     return ListView.builder(
         padding: EdgeInsets.all(16.0),
         itemBuilder: (context, i) {
@@ -49,16 +91,15 @@ class _RandomWordsState extends State<RandomWords> {
 
           final index = i ~/ 2;
           if (index >= _suggestions.length) {
-
             _suggestions.addAll(generateWordPairs().take(10));  
           }
-          return _buildRow(_suggestions[index]);
+          return _buildCardContent(_suggestions[index]);
     });
   }
 
-  Widget _buildRow(WordPair pair) {    
+  Widget _buildCardContent(WordPair pair) {    
 
-    final alreadyFavourite = _favourite.contains(pair); 
+    final alreadyFavourite = favourite.contains(pair); 
     return ListTile(
         leading: Image(
             image: AssetImage('assets/images/icon-blue-bg.png'),
@@ -74,7 +115,7 @@ class _RandomWordsState extends State<RandomWords> {
         // ),
         title: Text(
           pair.asPascalCase,
-          style: _bodyTextStyle,
+          style: bodyTextStyle,
         ),
         trailing: Icon(
           alreadyFavourite ? Icons.favorite : Icons.favorite_border,
@@ -83,153 +124,23 @@ class _RandomWordsState extends State<RandomWords> {
         onTap: () {
         setState(() {
 
-          if (alreadyFavourite) {
-
-            _favourite.remove(pair);
+          if (alreadyFavourite) {       
+            favourite.remove(pair);
           } else { 
-
-            _favourite.add(pair); 
+            favourite.add(pair); 
           }
         });
       },
     );
   }
 
-  void _pushFavourite() {
-    
-    final GlobalKey<ScaffoldState> _favScaffoldKey = new GlobalKey<ScaffoldState>();
-    Navigator.of(context).push(
-      MaterialPageRoute<void>( 
-        builder: (BuildContext context) {
-           
-          var tiles = _favourite.map(
-              (WordPair pair) {
-                return ListTile(
-                  title: Text(
-                    pair.asPascalCase,
-                    style: _bodyTextStyle,
-                  ),
-                );
-              },
-            );
- 
-            var divided = ListTile.divideTiles(
-              context: context,
-              tiles: tiles,
-            ).toList();
-
-          if(divided.length == 0) {
-            
-            divided = ListTile.divideTiles(
-              context: context,
-              tiles: [
-                  ListTile(
-                    title: Text(
-                      'No favourites!',
-                      style: _bodyTextStyle,
-                    ),
-                  ),
-                ]
-            ).toList();
-          }
-
-        _clearFavourite() {
-
-            print('_clearFavourite _favourite ======================================');
-            print(_favourite);
-            _favourite.clear();
-            print('_clearFavourite _favourite clear ======================================');
-            print(_favourite);
-            final snackBar =  SnackBar( 
-              backgroundColor: Colors.blue, 
-              content: Row(
-                children: <Widget>[                       
-                  Icon(
-                    Icons.info,
-                    color: Colors.white,
-                  ),
-                  Text(
-                    'Removed all favourites!',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0,
-                      color: Colors.white,
-                      fontFamily: 'IndieFlower',
-                    ),
-                  ),
-                ],
-              ),
-            action: SnackBarAction(
-                      label: 'Ok',
-                      onPressed: () {
-                        
-                        print('Snackbar closed!');
-                      },
-                    ),
-              duration: Duration(milliseconds: 5000),
-          );
-
-          _favScaffoldKey.currentState.showSnackBar(snackBar);
-        }
-
-          return Scaffold(
-              key: _favScaffoldKey,
-              appBar: AppBar(
-              title: Text(
-                'Favourites',
-                style: _appHeaderTextStyle
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.blue,
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.clear_all), 
-                  onPressed: _clearFavourite,
-                ),
-              ],
-            ),
-            body: ListView(children: divided),
-          );
-        },
-      ),
-    );
+  _clearFavourite(){
+    setState((){
+      favourite.clear();
+    });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            'App Title',
-            style: _appHeaderTextStyle,
-          ),
-        centerTitle: true,
-        backgroundColor: Colors.red,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.list), 
-            onPressed: _pushFavourite,
-          ),
-        ],
-      ),
-      body: _buildSuggestions(),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-
-              print('button clicked!');
-          },
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.red
-        ),
-    );
+  void _addFav() {
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => FavListPage(favourite, _clearFavourite)));   
   }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  State<RandomWords> createState() => _RandomWordsState();
 }

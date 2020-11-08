@@ -1,3 +1,4 @@
+//************** Setup ************** //
 git clone https://github.com/flutter/flutter.git -b stable
 From the Start search bar, enter ‘env’ and select Edit environment variables for your account.
 Add full path to flutter\bin
@@ -14,6 +15,7 @@ Set up your Android device:
 Enable Developer options and USB debugging on your device
 Windows-only: Install the Google USB Driver
 
+//************** Application ************** //
 flutter create myapp
 cd myapp
 

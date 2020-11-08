@@ -20,7 +20,7 @@ class _FavouriteListState extends State<FavouriteList> {
                 return ListTile(
                   title: Text(
                     pair.asPascalCase,
-                    style: _bodyTextStyle,
+                    style: bodyTextStyle,
                   ),
                 );
               },
@@ -39,7 +39,7 @@ class _FavouriteListState extends State<FavouriteList> {
                   ListTile(
                     title: Text(
                       'No favourites!',
-                      style: _bodyTextStyle,
+                      style: bodyTextStyle,
                     ),
                   ),
                 ]
@@ -61,7 +61,7 @@ class _FavouriteListState extends State<FavouriteList> {
                     setState((){
                       widget.favList.clear();
                     });
-                    widget.clearCallback();
+                    widget.clearFavourite();
                   },
                 ),
               ],

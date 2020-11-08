@@ -141,6 +141,6 @@ class _CardListState extends State<CardList> {
   }
 
   void _addFav() {
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => FavListPage(favourite, _clearFavourite)));   
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => FavouriteList(favourite, _clearFavourite)));   
   }
 }

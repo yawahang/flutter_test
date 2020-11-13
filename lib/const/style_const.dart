@@ -6,7 +6,7 @@ class PageStyle {
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
-                color: Colors.white,
+                color: WHITE,
               );
   static const BODY_TEXT = TextStyle(
                 fontSize: 18.0,
@@ -26,7 +26,7 @@ class PageStyle {
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
-                color: Colors.white,
+                color: WHITE,
                 fontFamily: 'IndieFlower',
               );
 }

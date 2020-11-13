@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:flutter_app/page/_favourite_list.dart';
+import 'package:flutter_app/page/word_list/_favourite_list.dart';
 import 'package:flutter_app/const/_const.dart';
 
 final GlobalKey<ScaffoldState> wordListKey = new GlobalKey<ScaffoldState>();
@@ -43,7 +43,7 @@ class _WordListPageState extends State<WordListPage> {
           },
           child: Icon(
             Icons.add,
-            color: Colors.white,
+            color: WHITE,
           ),
           backgroundColor: RED
         ),

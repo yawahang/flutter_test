@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+const WHITE = Colors.white;
 const BLUE = Colors.blue;
 const RED = Colors.red;
 const GREEN = Colors.green;

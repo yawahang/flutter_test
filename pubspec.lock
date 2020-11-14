@@ -74,6 +74,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  list_english_words:
+    dependency: "direct main"
+    description:
+      name: list_english_words
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1+2"
   matcher:
     dependency: transitive
     description:

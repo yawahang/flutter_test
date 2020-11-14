@@ -12,4 +12,9 @@ const PAGE_ITEMS = [
     "img": PageImage.MENU,
     "click": PageName.MESSAGE,
   },
+  {
+    "title": PageName.EMPTY,
+    "img": PageImage.MENU,
+    "click": PageName.EMPTY,
+  },
 ];

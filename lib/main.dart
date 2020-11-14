@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         PageName.WORD_LIST: (context) => WordListPage(),
         PageName.MESSAGE: (context) => MessagePage(),
+        PageName.EMPTY: (context) => EmptyPage(),
       },
     );
   }

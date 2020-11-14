@@ -89,7 +89,7 @@ class _FavouriteListState extends State<FavouriteList> {
                                       onPressed: () {
             
                                       final snackBarNo =  SnackBar( 
-                                           backgroundColor: YELLOW, 
+                                           backgroundColor: RED, 
                                            content: Row(
                                              children: <Widget>[                       
                                                Icon(

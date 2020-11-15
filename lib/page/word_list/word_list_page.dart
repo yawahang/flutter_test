@@ -1,9 +1,7 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-import 'package:flutter_app/page/word_list/_favourite_list.dart';
 import 'package:flutter_app/const/_const.dart';
+import 'package:english_words/english_words.dart';
+import 'package:flutter_app/page/word_list/word_list_favourite.dart';
 
 final GlobalKey<ScaffoldState> wordListKey = new GlobalKey<ScaffoldState>();
 

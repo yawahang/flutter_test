@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         PageName.WORD_LIST: (context) => WordListPage(),
+        PageName.ALBUM: (context) => AlbumPage(),
         PageName.MESSAGE: (context) => MessagePage(),
         PageName.EMPTY: (context) => EmptyPage(),
       },

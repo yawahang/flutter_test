@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
         title: Text('Home'),
       ),
       body: GridView.builder(
+        itemCount: PAGE_ITEMS.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 4,
@@ -65,7 +66,6 @@ class _HomePageState extends State<HomePage> {
         itemBuilder: (context, index) {
           return _item(context, index);
         },
-        itemCount: PAGE_ITEMS.length,
       ),
     );
   }

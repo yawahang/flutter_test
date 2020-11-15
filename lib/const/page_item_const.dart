@@ -8,6 +8,11 @@ const PAGE_ITEMS = [
     "click": PageName.WORD_LIST,
   },
   {
+    "title": PageName.ALBUM,
+    "img": PageImage.MENU,
+    "click": PageName.ALBUM,
+  }, 
+  {
     "title": PageName.MESSAGE,
     "img": PageImage.MENU,
     "click": PageName.MESSAGE,

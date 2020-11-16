@@ -16,7 +16,7 @@ class AlbumPage extends StatefulWidget {
 }
 
 class _AlbumPageState extends State<AlbumPage> {
-  //
+
   StreamController<int> streamController = new StreamController<int>();
 
   gridview(AsyncSnapshot<List<Album>> snapshot) {

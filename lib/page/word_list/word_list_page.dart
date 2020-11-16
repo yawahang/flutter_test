@@ -107,6 +107,12 @@ class _WordListPageState extends State<WordListPage> {
   }
 
   void _addFav() {
-    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) => FavouriteList(favourite, _clearFavourite)));   
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (context) => FavouriteList(
+          favourite, _clearFavourite
+          ),
+      ),
+    );   
   }
 }

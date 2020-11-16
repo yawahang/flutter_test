@@ -102,12 +102,6 @@ class _FavouriteListState extends State<FavouriteList> {
                                                ),
                                              ],
                                            ),
-                                         action: SnackBarAction(
-                                           label: 'OK',
-                                           onPressed: () {
- 
-                                            },
-                                          ),
                                           duration: Duration(milliseconds: 5000),
                                         );
 
@@ -143,12 +137,6 @@ class _FavouriteListState extends State<FavouriteList> {
                                                       ),
                                                     ],
                                                   ),
-                                                action: SnackBarAction(
-                                                  label: 'OK',
-                                                  onPressed: () {
- 
-                                                 },
-                                            ),
                                           duration: Duration(milliseconds: 5000),
                                         );
 
@@ -183,12 +171,6 @@ class _FavouriteListState extends State<FavouriteList> {
                                    ),
                                  ],
                                ),
-                             action: SnackBarAction(
-                               label: 'OK',
-                              onPressed: () {
- 
-                              },
-                         ),
                         duration: Duration(milliseconds: 5000),
                       );
 
